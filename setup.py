@@ -67,7 +67,7 @@ setup(
         "Bug Tracker": "https://github.com/neocl/freebible/issues",
         "Source Code": "https://github.com/neocl/freebible/"
     },
-    keywords="nlp",
+    keywords="free holy bible nlp",
     license=freebible.__license__,
     author=freebible.__author__,
     tests_require=['chirptext >= 0.1'],
