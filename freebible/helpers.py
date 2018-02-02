@@ -35,7 +35,7 @@ import logging
 from freebible.data import KOUGO_PATH
 from freebible.parsers.kougo import parse_kougo
 from freebible.data import WEB_VERSES, WEB_BOOKS, WEB_ABBRS
-from freebible.parsers.web import parse_web
+from freebible.parsers.web import parse_web, read_abbr
 
 
 # -------------------------------------------------------------------------------
@@ -58,3 +58,8 @@ def read_kougo():
 def read_web():
     ''' Read World English Bible '''
     return parse_web(WEB_VERSES, WEB_BOOKS, WEB_ABBRS)
+
+
+def bookmap():
+    ''' return World English Bible standard books mapping information (i.e. book names) '''
+    return read_abbr(WEB_ABBRS)
