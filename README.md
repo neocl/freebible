@@ -2,11 +2,11 @@
 
 Free holy bibles data and toolkit for Python developers
 
-# Project Home Page
+## Project Home Page
 
 https://github.com/neocl/freebible
 
-# Installation
+## Installation
 
 freebible package is available on PyPI, so it can be installed via pip by using
 
@@ -14,9 +14,9 @@ freebible package is available on PyPI, so it can be installed via pip by using
 pip install freebible
 ```
 
-# Sample code
+## Sample code
 
-## Accessing Kougo
+### Accessing Kougo
 
 ```python
 >>> from freebible import read_kougo
@@ -33,7 +33,7 @@ Chapter(ID='1')
 [John 1:1] 太初に言あり、言は神と偕にあり、言は神なりき。
 ```
 
-## Accessing World English Bible (WEB)
+### Accessing World English Bible (WEB)
 
 ```python
 >>> from freebible import read_web
@@ -52,7 +52,26 @@ Chapter(ID='1')
 [John 1:1] In the beginning was the Word, and the Word was with God, and the Word was God.
 ```
 
-# Bible sources:
+## Developer setup
+
+If you want to contribute to the source code, you can setup the development environment like this
+```bash
+# Create a virtual environment to install packages
+python3 -venv ~/.envfreebible
+# Activate the virtual environment
+. ~/.envfreebible/bin/activate
+
+# Check out the source code to your machine
+git clone https://github.com/freebible freebible-project
+cd freebible-project
+# Install required packages
+pip install -r requirements.txt
+
+# Run the demo to make sure that this source code work
+python demo.py
+```
+
+## Bible sources:
 
 Japanese Colloquial 口語訳: http://jco.ibibles.net/
 
