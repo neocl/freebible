@@ -2,6 +2,10 @@
 
 Free holy bibles data and toolkit for Python developers
 
+# Project Home Page
+
+https://github.com/neocl/freebible
+
 # Installation
 
 freebible package is available on PyPI, so it can be installed via pip by using
