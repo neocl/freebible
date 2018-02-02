@@ -1,4 +1,4 @@
-# freebible
+# freebible library
 
 Free holy bibles data and toolkit for Python developers
 
@@ -23,3 +23,8 @@ kougo.summarise()
 # to quote a verse
 print(kougo['John'][1][1])
 ```
+# Bible sources:
+
+Japanese Colloquial 口語訳: http://jco.ibibles.net/
+
+World English Bible: https://github.com/scrollmapper/bible_databases
