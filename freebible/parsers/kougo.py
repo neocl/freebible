@@ -46,6 +46,23 @@ def getLogger():
     return logging.getLogger(__name__)
 
 
+STANDARD_BOOK_NAMES = {'Ge': 'Gen', 'Exo': 'Exo', 'Lev': 'Lev', 'Num': 'Num', 'Deu': 'Deut',
+                       'Josh': 'Josh', 'Jdgs': 'Judg', 'Ruth': 'Rth', '1Sm': '1 Sam',
+                       '2Sm': '2 Sam', '1Ki': '1 Kgs', '2Ki': '2 Kgs', '1Chr': '1 Chron',
+                       '2Chr': '2 Chron', 'Ezra': 'Ezra', 'Neh': 'Neh', 'Est': 'Esth',
+                       'Job': 'Job', 'Psa': 'Pslm', 'Prv': 'Prov', 'Eccl': 'Eccles',
+                       'SSol': 'Song', 'Isa': 'Isa', 'Jer': 'Jer', 'Lam': 'Lam', 'Eze': 'Ezek',
+                       'Dan': 'Dan', 'Hos': 'Hos', 'Joel': 'Joel', 'Amos': 'Amos', 'Obad': 'Obad',
+                       'Jonah': 'Jnh', 'Mic': 'Micah', 'Nahum': 'Nah', 'Hab': 'Hab', 'Zep': 'Zeph',
+                       'Hag': 'Haggai', 'Zec': 'Zech', 'Mal': 'Mal', 'Mat': 'Matt', 'Mark': 'Mrk',
+                       'Luke': 'Luk', 'John': 'John', 'Acts': 'Acts', 'Rom': 'Rom', '1Cor': '1 Cor',
+                       '2Cor': '2 Cor', 'Gal': 'Gal', 'Eph': 'Ephes', 'Phi': 'Phil', 'Col': 'Col',
+                       '1Th': '1 Thess', '2Th': '2 Thess', '1Tim': '1 Tim', '2Tim': '2 Tim',
+                       'Titus': 'Titus', 'Phmn': 'Philem', 'Heb': 'Hebrews', 'Jas': 'James',
+                       '1Pet': '1 Pet', '2Pet': '2 Pet', '1Jn': '1 John', '2Jn': '2 John',
+                       '3Jn': '3 John', 'Jude': 'Jude', 'Rev': 'Rev'}
+
+
 # -------------------------------------------------------------------------------
 # Functions
 # -------------------------------------------------------------------------------
@@ -95,4 +112,8 @@ def parse_kougo_raw(kougo_content):
     seisho = Collection()
     for b in books:
         seisho.add_book(b)
+        # also add standard book's short name
+        std_name = STANDARD_BOOK_NAMES[b.short_name]
+        if std_name != b.short_name:
+            seisho.book_map[std_name] = seisho[b.short_name]
     return seisho
