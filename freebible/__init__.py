@@ -51,9 +51,9 @@ __status__ = "Prototype"
 import logging
 
 try:
-    from freebible.helpers import read_kougo
+    from freebible.helpers import read_kougo, read_web
     from freebible.model import Collection
-    __all__ = ['read_kougo', 'Collection']
+    __all__ = ['read_kougo', 'read_web', 'Collection']
 except:
-    logging.getLogger(__name__).warning("freebible package was not loaded properly")
+    logging.getLogger(__name__).exception("freebible package was not loaded properly")
     pass

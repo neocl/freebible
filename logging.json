@@ -42,6 +42,11 @@
             "level": "DEBUG",
             "handlers": ["file_handler_verbose"],
             "propagate": "no"
+        },
+        "test": {
+          "level": "DEBUG",
+          "handlers": ["file_handler_verbose"],
+          "propagate": "no"
         }
     },
 

@@ -34,7 +34,10 @@ Latest version can be found at https://github.com/neocl/freebible
 
 import os
 import unittest
-from freebible import read_kougo
+import logging
+
+import freebible
+from freebible.parsers.web import read_keys, read_verses, read_abbr, read_genres
 
 # -------------------------------------------------------------------------------
 # Configuration
@@ -43,20 +46,62 @@ from freebible import read_kougo
 TEST_DIR = os.path.dirname(os.path.realpath(__file__))
 
 
+def getLogger():
+    return logging.getLogger(__name__)
+
 # -------------------------------------------------------------------------------
 # Tests
 # -------------------------------------------------------------------------------
 
 
-class TestParseKougo(unittest.TestCase):
+class TestKougoParser(unittest.TestCase):
 
     def test_parse_kougo(self):
-        bible = read_kougo()
+        bible = freebible.read_kougo()
         cc = sum(len(b) for b in bible)
         cv = sum(b.verse_count() for b in bible)
         self.assertEqual(len(bible), 66)
         self.assertEqual(cc, 1189)
         self.assertEqual(cv, 31105)
+
+
+class TestWEBParser(unittest.TestCase):
+
+    def test_read_web_raw(self):
+        books = read_keys(freebible.data.WEB_BOOKS)
+        self.assertEqual(len(books), 66)
+        self.assertEqual(books[0]['title'], 'Genesis')
+        # test read genres
+        genres = read_genres(freebible.data.WEB_GENRES)
+        self.assertEqual(genres['1'], 'Law')
+        # test read abbrs
+        abbrs = read_abbr(freebible.data.WEB_ABBRS)
+        self.assertEqual(abbrs.bid2name('1'), 'Gen')
+        verses = read_verses(freebible.data.WEB_VERSES)
+        self.assertEqual(len(verses), 31102)
+        self.assertTrue(verses[0]['text'].startswith('In the beginning'))
+
+    def test_read_web(self):
+        bible = freebible.read_web()
+        cc = sum(len(b) for b in bible)
+        cv = sum(b.verse_count() for b in bible)
+        self.assertEqual(len(bible), 66)
+        self.assertEqual(cc, 1189)
+        self.assertEqual(cv, 31102)
+
+
+class TestCrossCheck(unittest.TestCase):
+
+    def test_kougo_web_keys(self):
+        kougo = freebible.read_kougo()
+        web = freebible.read_web()
+        abbrs = read_abbr(freebible.data.WEB_ABBRS)
+        for b in kougo:
+            std_abbr = abbrs.standardize(b.short_name)
+            self.assertTrue(std_abbr)
+            if not std_abbr:
+                getLogger().warning("{} - {} not found".format(b.title_eng, b.short_name))
+            self.assertIn(std_abbr, web)
 
 
 # -------------------------------------------------------------------------------

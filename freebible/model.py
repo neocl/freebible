@@ -61,6 +61,7 @@ class Collection(object):
     ''' Book collection '''
     def __init__(self, books=None):
         self.book_map = {}
+        self.bookid_map = {}
         self.books = []
         if books is not None:
             for b in books:
@@ -80,6 +81,7 @@ class Collection(object):
 
     def add_book(self, book):
         self.book_map[book.short_name] = book
+        self.bookid_map[book.ID] = book
         self.books.append(book)
         return book
 
@@ -130,7 +132,7 @@ class Book(object):
     def __init__(self, ID='', title='', filename='', title_eng='', short_name=''):
         """
         """
-        self.ID = ID
+        self.ID = str(int(ID))
         self.filename = filename
         self.title = title
         self.title_eng = title_eng
@@ -273,3 +275,46 @@ class Verse(object):
     def from_string(verse_string):
         m = Verse.VERSE_PTN.match(verse_string)
         return Verse(ID=m.group('vid'), text=m.group('verse_text'), chapID=m.group('cid'), book_key=m.group('book_key'))
+
+
+class BookMap(object):
+    ''' Map book short names to standard book ID (WEB) '''
+    def __init__(self, abbr_data):
+        self.abbr_data = list(abbr_data)
+        self.name_to_bid_map = {r['text']: r['bookID'] for r in self.abbr_data}
+        self.bid_to_std_name_map = {r['bookID']: r['text'] for r in self.abbr_data if r['is_standard'] == '1'}
+        # these abbrs are missing from WEB keys
+        self.name_to_std_name_map = {'Deu': 'Deut',
+                                     'Ruth': 'Rth',
+                                     '1Sm': '1 Sam',
+                                     '2Sm': '2 Sam',
+                                     'Est': 'Esth',
+                                     'Eccl': 'Eccles',
+                                     'SSol': 'Song',
+                                     'Jonah': 'Jnh',
+                                     'Nahum': 'Nah',
+                                     'Mat': 'Matt',
+                                     'Mark': 'Mrk',
+                                     'Luke': 'Luk',
+                                     'Phi': 'Phil',
+                                     'Phmn': 'Philem'}
+        for row in abbr_data:
+            self.name_to_std_name_map[row['text']] = self.bid2name(row['bookID'])
+
+    def bid2name(self, bookID):
+        ''' get standard short name for a bookID '''
+        if bookID in self.bid_to_std_name_map:
+            return self.bid_to_std_name_map[bookID]
+        return None
+
+    def name2bid(self, short_name):
+        ''' Short name to bookID '''
+        if short_name in self.name_to_bid_map:
+            return self.name_to_bid_map[short_name]
+        return None
+
+    def standardize(self, short_name):
+        if short_name in self.name_to_std_name_map:
+            return self.name_to_std_name_map[short_name]
+        else:
+            return None

@@ -34,6 +34,8 @@ import logging
 
 from freebible.data import KOUGO_PATH
 from freebible.parsers.kougo import parse_kougo
+from freebible.data import WEB_VERSES, WEB_BOOKS, WEB_ABBRS
+from freebible.parsers.web import parse_web
 
 
 # -------------------------------------------------------------------------------
@@ -49,4 +51,10 @@ def getLogger():
 # -------------------------------------------------------------------------------
 
 def read_kougo():
+    ''' Read Japanese Colloquial Bible (口語訳) '''
     return parse_kougo(KOUGO_PATH)
+
+
+def read_web():
+    ''' Read World English Bible '''
+    return parse_web(WEB_VERSES, WEB_BOOKS, WEB_ABBRS)

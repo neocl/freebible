@@ -33,10 +33,9 @@ Latest version can be found at https://github.com/neocl/freebible
 
 import os
 import logging
-import codecs
-import gzip
 
 from freebible.model import Collection, Book, Chapter, Verse
+from freebible.io import read_file
 
 
 # -------------------------------------------------------------------------------
@@ -55,12 +54,7 @@ def parse_kougo(seisho_path):
     ''' Parse Kougo from raw text format '''
     if not seisho_path or not os.path.isfile(seisho_path):
         raise Exception("Seisho not found (provided path: {})".format(seisho_path))
-    if seisho_path.endswith('.gz'):
-        with gzip.open(seisho_path, 'rb') as infile:
-            return parse_kougo_raw(infile.read().decode('utf-8'))
-    else:
-        with codecs.open(seisho_path, encoding='utf-8') as infile:
-            return parse_kougo_raw(infile.read())
+    return parse_kougo_raw(read_file(seisho_path))
 
 
 def parse_kougo_raw(kougo_content):
