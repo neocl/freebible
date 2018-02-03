@@ -69,10 +69,10 @@ python3 -venv ~/.envfreebible
 git clone https://github.com/freebible freebible-project
 cd freebible-project
 # Install required packages
-pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 
 # Run the demo to make sure that this source code work
-python demo.py
+python3 demo.py
 ```
 
 ## Bible sources:
