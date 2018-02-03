@@ -10,9 +10,13 @@ https://github.com/neocl/freebible
 
 freebible package is available on PyPI, so it can be installed via pip by using
 
-```
+```bash
 pip install freebible
+# or even better
+python3 -m pip install freebible
 ```
+
+Please note that freebible requires **Python 3**. It does not work on ~~Python 2~~ anymore. 
 
 ## Sample code
 
