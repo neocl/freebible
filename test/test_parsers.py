@@ -102,6 +102,29 @@ class TestCrossCheck(unittest.TestCase):
             if not std_abbr:
                 getLogger().warning("{} - {} not found".format(b.title_eng, b.short_name))
             self.assertIn(std_abbr, web)
+        for b in web:
+            self.assertIn(b.short_name, kougo)
+
+    def test_verses(self):
+        kougo = freebible.read_kougo()
+        web = freebible.read_web()
+        abbrs = read_abbr(freebible.data.WEB_ABBRS)
+        for b in web:
+            for c in b:
+                for v in c:
+                    try:
+                        t = kougo[b.short_name][c.ID][v.ID]
+                        assert t
+                    except:
+                        getLogger().warning("Missing verse in kougo {} {} {}".format(b.short_name, c.ID, v.ID))
+        for b in kougo:
+            for c in b:
+                for v in c:
+                    try:
+                        t = web[abbrs.standardize(b.short_name)][c.ID][v.ID]
+                        assert t
+                    except:
+                        getLogger().warning("Missing verse in WEB {} {} {}".format(b.short_name, c.ID, v.ID))
 
 
 # -------------------------------------------------------------------------------
