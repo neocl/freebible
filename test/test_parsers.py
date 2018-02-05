@@ -63,6 +63,7 @@ class TestKougoParser(unittest.TestCase):
         self.assertEqual(len(bible), 66)
         self.assertEqual(cc, 1189)
         self.assertEqual(cv, 31105)
+        self.assertEqual(len(bible.keys()), 66)
 
 
 class TestWEBParser(unittest.TestCase):
@@ -88,6 +89,7 @@ class TestWEBParser(unittest.TestCase):
         self.assertEqual(len(bible), 66)
         self.assertEqual(cc, 1189)
         self.assertEqual(cv, 31102)
+        self.assertEqual(len(bible.keys()), 66)
 
 
 class TestCrossCheck(unittest.TestCase):

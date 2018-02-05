@@ -85,6 +85,10 @@ class Collection(object):
         self.books.append(book)
         return book
 
+    def keys(self):
+        ''' Get a list of all available book keys (short names ) '''
+        return [b.short_name for b in self]
+
     def summarise(self):
         cc = sum(len(b) for b in self)
         cv = sum(b.verse_count() for b in self.books)
