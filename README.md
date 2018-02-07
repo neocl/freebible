@@ -20,6 +20,41 @@ Please note that freebible requires **Python 3**. It does not work on ~~Python 2
 
 ## Sample code
 
+### Easy access
+
+```python
+>>> from freebible import bibles
+
+# Quote everything
+>>> bibles.print("Gen")
+[1] 創世記
+[1] Genesis
+[Book(ID='1', title='創世記', filename='Genesis', title_eng='Genesis', short_name='Ge'), Book(ID='1', title='Genesis', filename='', title_eng='Genesis', short_name='Gen')]
+>>> bibles.print("Gen", 1)
+創世記 - chapter 1
+Genesis - chapter 1
+[Chapter(ID='1'), Chapter(ID='1')]
+>>> bibles.print("Gen", 1, 1)
+[Ge 1:1] 元始に神天地を創造たまへり 
+[Gen 1:1] In the beginning God{After "God," the Hebrew has the two letters "Aleph Tav" (the first and last letters of the Hebrew alphabet) as a grammatical marker.} created the heavens and the earth.
+[Ge 1:1 元始に神天地を創造たまへり , Gen 1:1 In the beginning God{After "God," the Hebrew has the two letters "Aleph Tav" (the first and last letters of the Hebrew alphabet) as a grammatical marker.} created the heavens and the earth.]
+
+# Quote from a specific bible
+>>> bibles.kougo.quote("John")  # this returns a book object
+Book(ID='104', title='ヨハネ傳福音書', filename='John', title_eng='John', short_name='John')
+>>> bibles.kougo.quote("John", 1)  # this returns a chapter object
+Chapter(ID='1')
+>>> bibles.kougo.quote("John", 1, 1)  # this returns a verse object
+John 1:1 太初に言あり、言は神と偕にあり、言は神なりき。 
+
+>>> bibles.web.quote("John")
+Book(ID='43', title='John', filename='', title_eng='John', short_name='John')
+>>> bibles.web.quote("John", 1)
+Chapter(ID='1')
+>>> bibles.web.quote("John", 1, 1)
+John 1:1 In the beginning was the Word, and the Word was with God, and the Word was God.
+```
+
 ### Accessing Kougo
 
 ```python

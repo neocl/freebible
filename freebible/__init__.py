@@ -51,7 +51,7 @@ __status__ = "Prototype"
 import logging
 
 try:
-    from freebible.helpers import read_kougo, read_web
+    from freebible.helpers import read_kougo, read_web, bibles
     from freebible.model import Collection
     __all__ = ['read_kougo', 'read_web', 'Collection']
 except:

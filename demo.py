@@ -1,3 +1,25 @@
+# ------------------------------------------------------------------------------
+# Easy mode
+# ------------------------------------------------------------------------------
+
+from freebible import bibles
+
+# Quote everything
+bibles.print("Gen")
+bibles.print("Gen", 1)
+bibles.print("Gen", 1, 1)
+
+# Quote from a specific bible
+bibles.kougo.quote("John")  # this returns a book object
+bibles.kougo.quote("John", 1)  # this returns a chapter object
+bibles.kougo.quote("John", 1, 1)  # this returns a verse object
+bibles.web.quote("John")
+bibles.web.quote("John", 1)
+bibles.web.quote("John", 1, 1)
+
+# ------------------------------------------------------------------------------
+# Advanced access
+# ------------------------------------------------------------------------------
 from freebible import read_kougo, read_web
 
 kougo = read_kougo()

@@ -79,6 +79,16 @@ class Collection(object):
     def __iter__(self):
         return iter(self.books)
 
+    def quote(self, book_key, cid=None, vid=None):
+        if book_key and cid and vid:
+            return self[book_key][cid][vid]
+        elif book_key and cid:
+            return self[book_key][cid]
+        elif book_key:
+            return self[book_key]
+        else:
+            raise KeyError("Book key cannot be None")
+
     def add_book(self, book):
         self.book_map[book.short_name] = book
         self.bookid_map[book.ID] = book
@@ -150,6 +160,7 @@ class Book(object):
         else:
             self.__chapters.append(chapter)
             self.__chapter_map[chapter.ID] = chapter
+            chapter.book = self
             return chapter
 
     def __getitem__(self, chapID):
@@ -204,13 +215,22 @@ class Book(object):
 
 class Chapter(object):
 
-    def __init__(self, ID=None, title=''):
+    def __init__(self, ID=None, title='', book=None):
         """
         """
         self.ID = ID
         self.title = title
         self.__verses = []
         self.__verse_map = {}
+        self.__book = book
+
+    @property
+    def book(self):
+        return self.__book
+
+    @book.setter
+    def book(self, value):
+        self.__book = value
 
     def add_verse(self, verse):
         self.__verse_map[verse.ID] = verse
@@ -236,6 +256,12 @@ class Chapter(object):
 
     def __repr__(self):
         return "Chapter(ID={})".format(repr(self.ID))
+
+    def __str__(self):
+        if self.__book:
+            return "{} - chapter {}".format(self.book.title, self.ID)
+        else:
+            return "chapter {}".format(self.ID)
 
     def to_json(self):
         return {'ID': self.ID,

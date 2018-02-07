@@ -1,2 +1,2 @@
-chirptext >= 0.1a2
+chirptext >= 0.1a6
 pyyaml
