@@ -42,7 +42,7 @@ __license__ = "MIT License"
 __description__ = "A bible processing toolkit with free bible data for Python"
 __url__ = "https://github.com/neocl/freebible"
 __maintainer__ = "Le Tuan Anh"
-__version_major__ = "0.1a4"
+__version_major__ = "0.1a5"
 __version__ = "{}".format(__version_major__)
 __version_long__ = "{} - Alpha".format(__version_major__)
 __status__ = "Prototype"
@@ -53,7 +53,7 @@ import logging
 try:
     from freebible.helpers import read_kougo, read_web, bibles
     from freebible.model import Collection
-    __all__ = ['read_kougo', 'read_web', 'Collection']
+    __all__ = ['read_kougo', 'read_web', 'bibles', 'Collection']
 except:
     logging.getLogger(__name__).exception("freebible package was not loaded properly")
     pass
