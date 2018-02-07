@@ -29,15 +29,12 @@ Please note that freebible requires **Python 3**. It does not work on ~~Python 2
 >>> bibles.print("Gen")
 [1] 創世記
 [1] Genesis
-[Book(ID='1', title='創世記', filename='Genesis', title_eng='Genesis', short_name='Ge'), Book(ID='1', title='Genesis', filename='', title_eng='Genesis', short_name='Gen')]
 >>> bibles.print("Gen", 1)
 創世記 - chapter 1
 Genesis - chapter 1
-[Chapter(ID='1'), Chapter(ID='1')]
 >>> bibles.print("Gen", 1, 1)
 [Ge 1:1] 元始に神天地を創造たまへり 
 [Gen 1:1] In the beginning God{After "God," the Hebrew has the two letters "Aleph Tav" (the first and last letters of the Hebrew alphabet) as a grammatical marker.} created the heavens and the earth.
-[Ge 1:1 元始に神天地を創造たまへり , Gen 1:1 In the beginning God{After "God," the Hebrew has the two letters "Aleph Tav" (the first and last letters of the Hebrew alphabet) as a grammatical marker.} created the heavens and the earth.]
 
 # Quote from a specific bible
 >>> bibles.kougo.quote("John")  # this returns a book object
