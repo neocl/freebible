@@ -29,9 +29,6 @@ Please note that freebible requires **Python 3**. It does not work on ~~Python 2
 >>> bibles.print("Gen")
 [1] 創世記
 [1] Genesis
->>> bibles.print("Gen", 1)
-創世記 - chapter 1
-Genesis - chapter 1
 >>> bibles.print("Gen", 1, 1)
 [Ge 1:1] 元始に神天地を創造たまへり 
 [Gen 1:1] In the beginning God{After "God," the Hebrew has the two letters "Aleph Tav" (the first and last letters of the Hebrew alphabet) as a grammatical marker.} created the heavens and the earth.
