@@ -4,31 +4,9 @@
 Bible models
 Latest version can be found at https://github.com/neocl/freebible
 
-@author: Le Tuan Anh <tuananh.ke@gmail.com>
-@license: MIT
+:copyright: (c) 2018, Le Tuan Anh <tuananh.ke@gmail.com>
+:license: MIT, see LICENSE for more details.
 '''
-
-# Copyright (c) 2018, Le Tuan Anh <tuananh.ke@gmail.com>
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
-
-########################################################################
 
 import os
 import logging
@@ -40,7 +18,6 @@ except:
     logging.getLogger(__name__).warning("YAML module is not available. Exporting to YAML function will NOT work.")
 
 from chirptext.anhxa import to_obj
-
 
 # -------------------------------------------------------------------------------
 # Configuration
@@ -59,10 +36,11 @@ def getLogger():
 
 class Collection(object):
     ''' Book collection '''
-    def __init__(self, books=None):
+    def __init__(self, name=None, books=None):
         self.book_map = {}
         self.bookid_map = {}
         self.books = []
+        self.name = name
         if books is not None:
             for b in books:
                 self.add_book(b)
@@ -120,6 +98,7 @@ class Collection(object):
             return Collection.read_json(json.loads(infile.read()))
 
     def export(self, output, format='json'):
+        ''' Export bible data to diffrent formats '''
         json_books = [b.to_json() for b in self]
         if format == 'json':
             output.write(json.dumps(json_books, ensure_ascii=False, indent=2))

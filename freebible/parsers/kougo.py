@@ -35,7 +35,7 @@ import os
 import logging
 
 from freebible.model import Collection, Book, Chapter, Verse
-from freebible.io import read_file
+from chirptext.io import read_file
 
 
 # -------------------------------------------------------------------------------

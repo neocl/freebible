@@ -6,31 +6,9 @@ Setup script for freebible.
 
 Latest version can be found at https://github.com/neocl/freebible
 
-@author: Le Tuan Anh <tuananh.ke@gmail.com>
-@license: MIT
+:copyright: (c) 2018 Le Tuan Anh <tuananh.ke@gmail.com>
+:license: MIT, see LICENSE for more details.
 '''
-
-# Copyright (c) 2018, Le Tuan Anh <tuananh.ke@gmail.com>
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
-
-########################################################################
 
 import io
 import os
@@ -38,13 +16,6 @@ try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
-
-import freebible
-
-########################################################################
-
-
-here = os.path.abspath(os.path.dirname(__file__))
 
 
 def read(*filenames, **kwargs):
@@ -57,23 +28,26 @@ def read(*filenames, **kwargs):
     return sep.join(buf)
 
 
-long_description = read('README.md', 'CHANGES.md')
+readme_file = 'README.rst' if os.path.isfile('README.rst') else 'README.md'
+long_description = read(readme_file)
+pkg_info = {}
+exec(read('freebible/__version__.py'), pkg_info)
 
 setup(
     name='freebible',
-    version=freebible.__version__,
-    url=freebible.__url__,
+    version=pkg_info['__version__'],
+    url=pkg_info['__url__'],
     project_urls={
         "Bug Tracker": "https://github.com/neocl/freebible/issues",
         "Source Code": "https://github.com/neocl/freebible/"
     },
     keywords="free holy bible nlp",
-    license=freebible.__license__,
-    author=freebible.__author__,
+    license=pkg_info['__license__'],
+    author=pkg_info['__author__'],
     tests_require=['chirptext >= 0.1a6'],
     install_requires=['chirptext >= 0.1a6'],
-    author_email=freebible.__email__,
-    description=freebible.__description__,
+    author_email=pkg_info['__email__'],
+    description=pkg_info['__description__'],
     long_description=long_description,
     packages=['freebible', 'freebible.data', 'freebible.parsers'],
     package_data={'freebible': ['data/kougo/*.gz',
@@ -88,9 +62,12 @@ setup(
                  'Natural Language :: Japanese',
                  'Natural Language :: Indonesian',
                  'Environment :: Plugins',
+                 'Intended Audience :: Science/Research',
                  'Intended Audience :: Developers',
-                 'License :: OSI Approved :: {}'.format(freebible.__license__),
+                 'Intended Audience :: Religion',
+                 'License :: OSI Approved :: {}'.format(pkg_info['__license__']),
                  'Operating System :: OS Independent',
+                 'Topic :: Religion',
                  'Topic :: Text Processing',
                  'Topic :: Software Development :: Libraries :: Python Modules']
 )

@@ -34,7 +34,7 @@ Latest version can be found at https://github.com/neocl/freebible
 import logging
 
 from freebible.model import Collection, Book, Chapter, Verse, BookMap
-from freebible.io import read_csv_file, is_file
+from chirptext.io import read_csv, is_file
 
 
 # -------------------------------------------------------------------------------
@@ -60,22 +60,22 @@ def parse_web(path, book_path, abbr_path=None):
 
 
 def read_keys(path):
-    return read_csv_file(path, fieldnames=('ID', 'title', 'col', 'genreID'))[1:]
+    return read_csv(path, fieldnames=('ID', 'title', 'col', 'genreID'))[1:]
 
 
 def read_abbr(path):
     ''' return a BookMap object (for converting between bookID and short_name) '''
-    abbr_data = read_csv_file(path, fieldnames=('ID', 'text', 'bookID', 'is_standard'))[1:]
+    abbr_data = read_csv(path, fieldnames=('ID', 'text', 'bookID', 'is_standard'))[1:]
     return BookMap(abbr_data)
 
 
 def read_genres(path):
-    rows = read_csv_file(path, fieldnames=('ID', 'genre'))[1:]
+    rows = read_csv(path, fieldnames=('ID', 'genre'))[1:]
     return {row['ID']: row['genre'] for row in rows}
 
 
 def read_verses(path):
-    return read_csv_file(path, fieldnames=['ID', 'bookID', 'chapID', 'verseID', 'text'])[1:]
+    return read_csv(path, fieldnames=['ID', 'bookID', 'chapID', 'verseID', 'text'])[1:]
 
 
 def parse_web_raw(verses, books, abbrs=None):
