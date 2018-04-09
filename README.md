@@ -31,7 +31,7 @@ Please note that freebible requires **Python 3**. It does not work on ~~Python 2
 [1] Genesis
 >>> bibles.print("Gen", 1, 1)
 [Ge 1:1] 元始に神天地を創造たまへり 
-[Gen 1:1] In the beginning God{After "God," the Hebrew has the two letters "Aleph Tav" (the first and last letters of the Hebrew alphabet) as a grammatical marker.} created the heavens and the earth.
+[Gen 1:1] In the beginning God created the heavens and the earth.
 
 # Quote from a specific bible
 >>> bibles.kougo.quote("John")  # this returns a book object

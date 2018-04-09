@@ -32,6 +32,8 @@ Latest version can be found at https://github.com/neocl/freebible
 ########################################################################
 
 import logging
+from collections import namedtuple
+import re
 
 from freebible.model import Collection, Book, Chapter, Verse, BookMap
 from chirptext.io import read_csv, read_csv_iter, is_file
@@ -48,6 +50,24 @@ def getLogger():
 # -------------------------------------------------------------------------------
 # Functions
 # -------------------------------------------------------------------------------
+
+NOTE_WITH_WORD_REGEX = re.compile("\s(?P<word>\S*?){(?P<comment>.*?)}")
+NOTE_ONLY_REGEX = re.compile("{(?P<comment>.*?)}")
+Comment = namedtuple("Comment", ["word", "comment"])
+
+
+def find_notes(verse_text):
+    comments = []
+    res = NOTE_WITH_WORD_REGEX.findall(verse_text)
+    for m in res:
+        cmt = Comment(*m)
+        comments.append(cmt)
+    return comments
+
+
+def strip_notes(verse_text):
+    return NOTE_ONLY_REGEX.sub('', verse_text)
+
 
 def read_verses(path):
     ''' Read all WEB's raw verses from CSV file '''
@@ -102,6 +122,7 @@ def parse_web_raw(verses, books, abbrs=None):
         else:
             chapter = book[cid]
         # add verse to chapter
-        verse_obj = Verse(ID=v['verseID'], text=v['text'], chapID=cid, book_key=book.short_name)
+        verse_text = strip_notes(v['text'])
+        verse_obj = Verse(ID=v['verseID'], text=verse_text, chapID=cid, book_key=book.short_name)
         chapter.add_verse(verse_obj)
     return bible

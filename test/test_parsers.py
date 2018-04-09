@@ -37,6 +37,7 @@ import unittest
 import logging
 
 import freebible
+from freebible.parsers import web
 from freebible.parsers.web import read_keys, read_verses, read_abbr, read_genres
 
 # -------------------------------------------------------------------------------
@@ -127,6 +128,27 @@ class TestCrossCheck(unittest.TestCase):
                         assert t
                     except:
                         getLogger().warning("Missing verse in WEB {} {} {}".format(b.short_name, c.ID, v.ID))
+
+
+class TestWEBNoteExtraction(unittest.TestCase):
+    TEST_VERSE = "He called the name of the place Massah,{Massah means testing.} and Meribah,{Meribah means quarreling.} because the children of Israel quarreled, and because they tested Yahweh, saying, \"Is Yahweh among us, or not?\""
+
+    def test_extract_note(self):
+        notes = web.find_notes(self.TEST_VERSE)
+        expected = [('Massah,', 'Massah means testing.'), ('Meribah,', 'Meribah means quarreling.')]
+        self.assertEqual(notes, expected)
+
+    def test_remove_notes(self):
+        expected = "He called the name of the place Massah, and Meribah, because the children of Israel quarreled, and because they tested Yahweh, saying, \"Is Yahweh among us, or not?\""
+        actual = web.strip_notes(self.TEST_VERSE)
+        getLogger().debug("After: {}".format(actual))
+        self.assertEqual(actual, expected)
+
+    def test_verse_text(self):
+        print("Test WEB verse without note")
+        actual = freebible.bibles.web['Gen'][1][1].text
+        expected = 'In the beginning God created the heavens and the earth.'
+        self.assertEqual(actual, expected)
 
 
 # -------------------------------------------------------------------------------
