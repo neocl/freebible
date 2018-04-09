@@ -69,7 +69,7 @@ class TestKougoParser(unittest.TestCase):
 class TestWEBParser(unittest.TestCase):
 
     def test_read_web_raw(self):
-        books = read_keys(freebible.data.WEB_BOOKS)
+        books = list(read_keys(freebible.data.WEB_BOOKS))
         self.assertEqual(len(books), 66)
         self.assertEqual(books[0]['title'], 'Genesis')
         # test read genres
@@ -78,7 +78,7 @@ class TestWEBParser(unittest.TestCase):
         # test read abbrs
         abbrs = read_abbr(freebible.data.WEB_ABBRS)
         self.assertEqual(abbrs.bid2name('1'), 'Gen')
-        verses = read_verses(freebible.data.WEB_VERSES)
+        verses = list(read_verses(freebible.data.WEB_VERSES))
         self.assertEqual(len(verses), 31102)
         self.assertTrue(verses[0]['text'].startswith('In the beginning'))
 
