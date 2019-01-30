@@ -36,7 +36,7 @@ from collections import namedtuple
 import re
 
 from freebible.model import Collection, Book, Chapter, Verse, BookMap
-from chirptext.io import read_csv, read_csv_iter, is_file
+from chirptext.chio import read_csv, read_csv_iter, is_file
 
 
 # -------------------------------------------------------------------------------
