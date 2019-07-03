@@ -12,10 +12,14 @@ import os
 import logging
 import re
 import json
+
+__YAML_AVAILABLE = False
 try:
     import yaml
-except:
+    __YAML_AVAILABLE = True
+except Exception:
     logging.getLogger(__name__).info("YAML module is not available. Exporting to YAML function will NOT work.", stacklevel=2)
+
 
 from chirptext.anhxa import to_obj
 
@@ -28,6 +32,11 @@ DATA_FOLDER = os.path.abspath(os.path.expanduser('./data'))
 
 def getLogger():
     return logging.getLogger(__name__)
+
+
+def yaml_available():
+    global __YAML_AVAILABLE
+    return __YAML_AVAILABLE
 
 
 # -------------------------------------------------------------------------------
@@ -103,10 +112,13 @@ class Collection(object):
         if format == 'json':
             output.write(json.dumps(json_books, ensure_ascii=False, indent=2))
         elif format == 'yaml':
+            if not yaml_available():
+                getLogger().exception("YAML module is not installed. Program aborted.")
+                return
             try:
                 yaml_str = yaml.safe_dump(json_books, default_flow_style=False, allow_unicode=True, encoding='utf-8')
                 output.write(yaml_str)
-            except:
+            except Exception:
                 getLogger().exception("Error was raised while exporting to YAML format")
         elif format == 'txt':
             for b in self:
