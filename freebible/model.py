@@ -15,7 +15,7 @@ import json
 try:
     import yaml
 except:
-    logging.getLogger(__name__).warning("YAML module is not available. Exporting to YAML function will NOT work.")
+    logging.getLogger(__name__).info("YAML module is not available. Exporting to YAML function will NOT work.", stacklevel=2)
 
 from chirptext.anhxa import to_obj
 
