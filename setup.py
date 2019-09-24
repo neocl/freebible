@@ -30,6 +30,12 @@ def read(*filenames, **kwargs):
 
 readme_file = 'README.rst' if os.path.isfile('README.rst') else 'README.md'
 long_description = read(readme_file)
+if readme_file.lower().endswith(".md"):
+    long_description_content_type = "text/markdown"
+elif readme_file.lower().endswith(".rst"):
+    long_description_content_type = "text/x-rst"
+else:
+    long_description_content_type = "text/plain"
 pkg_info = {}
 exec(read('freebible/__version__.py'), pkg_info)
 
@@ -49,6 +55,7 @@ setup(
     author_email=pkg_info['__email__'],
     description=pkg_info['__description__'],
     long_description=long_description,
+    long_description_content_type=long_description_content_type,
     packages=['freebible', 'freebible.data', 'freebible.parsers'],
     package_data={'freebible': ['data/kougo/*.gz',
                                 'data/web/*.gz']},
